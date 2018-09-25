@@ -1,17 +1,10 @@
 <?php
 
-$username = $_POST[$usernameField];
-$password = $_POST[$passwordField];
-$passwordConfirm = $_POST[$passwordConfirmField];
-$email = $_POST[$emailField];
+$un = $_POST[$username];
+$pw = $_POST[$password];
+$pwC = $_POST[$passwordConfirm];
+$em = $_POST[$email];
 
-if($password != $passwordConfirm)
+if($pw != $pwC)
     die("Passwords not matching");
 
-/** Returns true if login successful, false if it fails.
- * @param $username name of user
- * @param $password password of user
- */
-function loginUser($username, $password) {
-
-}
