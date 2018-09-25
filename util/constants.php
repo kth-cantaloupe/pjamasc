@@ -1,6 +1,7 @@
 <?php
 
-$usernameField = "username";
-$passwordField = "password";
-$passwordConfirmField = "confirmPassword";
-$emailField = "email";
+$username = "username";
+$password = "password";
+$passwordConfirm = "confirmPassword";
+$email = "email";
+$error = "error";
