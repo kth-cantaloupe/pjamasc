@@ -1,16 +1,16 @@
 <?php
 require "../util/includeHeader.php";
 
-$username = $_POST[$username];
-$password = $_POST[$password];
+$username = $_POST[username];
+$password = $_POST[password];
 
 if(empty($username))
-    $_SESSION[$error] = "Please input username.";
+    $errorMessage = "Please input username.";
 else if(empty($username))
-    $_SESSION[$error] = "Please input password.";
+    $errorMessage = "Please input password.";
 else {
-    include "../model/userHandler.php";
-    loginUser($username, $password);
+    include "../controller/loginController.php";
+    $loginStatus = loginUser($username, $password);
+    if(!$loginStatus)
+        $errorMessage = $_SESSION[error];
 }
-
-require "../views/login.php";

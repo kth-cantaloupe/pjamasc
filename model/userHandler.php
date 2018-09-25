@@ -1,9 +1,12 @@
 <?php
 
-/** Returns true if login successful, false if it fails.
- * @param $username name of user
- * @param $password password of user
+/**
+ * Returns true if login successful, false if it fails.
  */
-function loginUser($username, $password) {
+function handleLogin($username, $password) {
+    require "../util/includeHeader.php";
+    require "../integration/dbHandler.php";
+
+    return validateUser($username, $password);
 
 }
