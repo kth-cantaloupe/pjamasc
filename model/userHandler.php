@@ -4,9 +4,12 @@
  * Returns true if login successful, false if it fails.
  */
 function handleLogin($username, $password) {
-    require "../util/includeHeader.php";
-    require "../integration/dbHandler.php";
+    require_once "../util/includeHeader.php";
+    require_once "../integration/dbHandler.php";
 
-    return validateUser($username, $password);
+    $row = getUser($username);
+    $dbUsername = $row["user_name"];
+    $dbPassword = $row["user_password"];
+    return ;
 
 }

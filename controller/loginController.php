@@ -1,5 +1,5 @@
 <?php
-require "../util/includeHeader.php";
+require_once "../util/includeHeader.php";
 
 function loginUser($username, $password)
 {
