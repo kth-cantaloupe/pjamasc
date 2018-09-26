@@ -26,3 +26,28 @@ function validateUser($username, $password) { // Might use hashed pws later
     $value = mysqli_fetch_object($result);
     return $value->user_name;
 }
+
+// Checks is uploaded file already exists
+// If it exists return true
+// If it does not exist, return false
+function fileExists ($owner){
+
+    // CODE
+    // CODE
+    // CODE
+
+
+
+    return false;
+}
+
+// Stores file in database, on success return true, on fail return false
+function storeFile($file,$company,$name, $number,$message){
+
+    //CODE
+    //CODE
+    //CODE
+
+    return true;
+
+}

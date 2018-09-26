@@ -7,17 +7,18 @@
  * Time: 12:14
  */
 
-
-
-
-    require "../util/includeHeader.php";
     include('../model/rfpHandler.php');
 
 
     // Requests file approval from model
-    function fileHandle($file)
+    function fileHandle($file,$company,$name, $number, $number,$message)
     {
-      return  approveFile($file);
+      $approved  =  approveFile($file,$company,$name, $number, $number,$message);
+
+        if ($approved == true)
+            return sendFile($file,$company,$name, $number, $number,$message);
+        else
+           return false;
     }
 
 

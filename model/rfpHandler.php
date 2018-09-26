@@ -5,7 +5,18 @@
  * Date: 2018-09-25
  * Time: 14:16
  */
+require '../integration/dbHandler.php';
+/**
+ * Checks the file is of correct size, format and properly uploaded.
+ * If no errors occur, then it is sent to database
 
+ * @param $file - The file that is to be uploaded
+ * @param $company - The company that sent the RFP
+ * @param $name - Contact person of the company
+ * @param $number - Phone Number of Contact Person
+ * @param $message - Description of RFP
+ * @return bool - True if success, false if error
+ */
 function approveFile($file){
     try {
 
@@ -46,35 +57,46 @@ function approveFile($file){
                 ),
                 true
             )) {
-            throw new RuntimeException('Invalid file format.');
+            throw new RuntimeException('Invalid file format, only PDF allowed');
         }
-
-        // You should name it uniquely.
-        // DO NOT USE $_FILES['upfile']['name'] WITHOUT ANY VALIDATION !!
-        // On this example, obtain safe unique name from its binary data.
-        if (!move_uploaded_file(
-            $file['tmp_name'],
-            sprintf('../rfp/' . $file['name'],
-                sha1_file($file['tmp_name']),
-                $ext
-            )
-        )
-
-        ) {
-            throw new RuntimeException('Failed to move uploaded file.');
-        }
-
 
 
     } catch (RuntimeException $e) {
 
+        $_SESSION[error] = $e->getMessage();
+        return false;
+
+    }
+return true;
+}
+
+/**
+ * Stores the file in the database if it doesn't already exist
+ *
+ * @param $file - The file that is to be uploaded
+ * @param $company - The company that sent the RFP
+ * @param $name - Contact person of the company
+ * @param $number - Phone Number of Contact Person
+ * @param $message - Description of RFP * @return bool
+ */
+function sendFile($file,$company,$contactName, $number,$message){
+    $exists = fileExists($company,$file['name']);
+    if($exists) {
+        $_SESSION[error] = "File has already been sent.";
         return false;
 
     }
 
-
-
-return true;
-
-
+    else {
+        $sent = storeFile($file, $company, $contactName, $number, $message);
+        if ($sent) {
+            $_SESSION[success] = "File sent!";
+            return true;
+        }
+        else {
+            $_SESSION[error] = "File could not be sent!";
+            return false;
+        }
+    }
+    return true;
 }
