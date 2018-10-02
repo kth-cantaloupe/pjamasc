@@ -2,7 +2,7 @@
 class Page {
   public $id, $title, $body, $weight;
 
-  public function __construct() {
+  public function __construct($row) {
     $this->id = $row['page_id'];
     $this->title = $row['page_title'];
     $this->body = $row['page_body'];

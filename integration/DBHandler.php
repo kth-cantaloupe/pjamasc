@@ -19,14 +19,24 @@ class DBHandler {
     return null;
   }
 
-  public function getAllPages() {
-    $stmt = $this->mysqli->prepare('SELECT * FROM page ORDER BY page_weight ASC');
+  public function getAllPages($includeBodies = false) {
+    $selectList = '*';
+    if ($includeBodies)
+      $selectList = 'page_id, page_title, page_weight';
+
+    $sql = sprintf('SELECT %s FROM page ORDER BY page_weight ASC', $selectList);
+
+    $stmt = $this->mysqli->prepare($sql);
     $stmt->execute();
     $res = $stmt->get_result();
 
     $pages = [];
-    while ($row = $res->fetch_array(MYSQLI_ASSOC))
+    while ($row = $res->fetch_array(MYSQLI_ASSOC)) {
+      if (!$includeBodies)
+        $row['page_body'] = null;
+
       $pages[] = new Page($row);
+    }
 
     return $pages;
   }
